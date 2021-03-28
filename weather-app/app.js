@@ -4,20 +4,17 @@ const forecast = require('./utils/forecast')
 const address = process.argv[2]
 
 if(address){
-    geocode.forward(address, (error, geoData) => {
+    geocode.forward(address, (error, { placeName, lat, long }) => {
 
         if(error){
             return console.log(error)
         }
-    
-        const { placeName, lat, long } = geoData
-        forecast.current(lat, long, (error, foreCastData) => {
+
+        forecast.current(lat, long, (error, { summery, temperature, feelsLike }) => {
     
             if(error){
                 return console.log(error)
             }
-    
-            const { summery, temperature, feelsLike } = foreCastData
     
             console.log(`LOCATION: ${placeName}`)
             console.log(`SUMMERY: ${summery}`)

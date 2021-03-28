@@ -7,16 +7,12 @@ const current = (lat, long, callback) => {
             url,
             json: true
         },
-        (error, response) => {
+        (error, { body }) => {
 
 
             if(error){
                 callback('Opps! Something went wrong.', undefined)
-            }else if(response.body.cod == 200){
-                const body = response.body
-            
-                // console.log(body.weather[0].description.toUpperCase() + '. It is currently ' + body.main.temp + ' degree and feels like ' +  body.main.feels_like + ' degree')
-
+            }else if(body.cod == 200){
                 const summery = body.weather[0].description.toUpperCase()
                 const temperature = body.main.temp
                 const feelsLike = body.main.feels_like

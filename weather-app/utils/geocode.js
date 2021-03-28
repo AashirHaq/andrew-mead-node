@@ -10,15 +10,14 @@ const forward = (address, callback) => {
             url,
             json: true
         },
-        (error, response) => {
+        (error, { body }) => {
             if(error){
                 callback('Opps! Something went wrong.', undefined)
-            }else if(message = response.body.message){
+            }else if(message = body.message){
                 callback(message, undefined)
-            }else if(response.body.features.length == 0) {
+            }else if(body.features.length == 0) {
                 callback('Unable to find location. Try another search.', undefined)
             }else{
-                const body = response.body
                 const feature = body.features[0]
                 const placeName = feature.place_name
                 const lat = feature.center[1]
